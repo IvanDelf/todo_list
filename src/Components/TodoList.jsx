@@ -43,14 +43,44 @@ const TodoList = () => {
             type="text"
             className="heading-input"
             placeholder="Enter heading"
-            
+            value={headingInput}
+            onChange={(e) => setHeadingInput(e.target.value)}
           />
           <button className="add-list-button">Add Heading</button>
         </div>
       </div>
       <div className="todo_main">
-        
+        {todos.map((todo, index) => (
+          <div key={index} className="todo-card">
+            <div className="heading_todo">
+              <h3>{todo.heading}</h3>
+              <button
+                className="delete-button-heading"
+                onClick={() => handleDeleteTodo(index)}
+              >
+                Delete Heading
+              </button>
+            </div>
+
+            <ul>
+              {todo.lists.map((list, listIndex) => (
+                <li key={listIndex} className='todo_inside_list'>
+                  <p>{list}</p>
+                </li>
+              ))}
+            </ul>
+            <div className="add_list">
+              <input
+                type="text"
+                className="list-input"
+                placeholder="Add list"
+                value={listInputs[index] || ''}
+                onChange={(e) => handleListInputChange(index, e.target.value)}/>
+              <button className='add-list-button' onClick={() => handleAddList(index)}>Add List</button>
+            </div>
       </div>
+       ))}
+    </div>
     </>
   );
 };
